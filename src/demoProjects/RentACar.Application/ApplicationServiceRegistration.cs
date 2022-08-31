@@ -1,4 +1,6 @@
 using System.Reflection;
+using Core.Application.Pipelines.Validation;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using RentACar.Application.Features.Brands.Rules;
@@ -13,6 +15,10 @@ public static class ApplicationServiceRegistration
         services.AddMediatR(Assembly.GetExecutingAssembly());
 
         services.AddScoped<BrandBusinessRules>();
+        
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 
         return services;
     }
