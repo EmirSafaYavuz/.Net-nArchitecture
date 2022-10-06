@@ -15,6 +15,7 @@ public static class PersistenceServiceRegistration
         services.AddDbContext<BaseDbContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("RentACarConnectionString"), b=>b.MigrationsAssembly("RentACar.Persistence")));
         services.AddScoped<IBrandRepository, BrandRepository>();
+        services.AddScoped<IModelRepository, ModelRepository>();
 
         return services;
     }
